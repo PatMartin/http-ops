@@ -1,8 +1,13 @@
-package org.ops4j.servlet;
+package org.ops4j.http.servlet;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.ops4j.http.op.HttpServer;
+import org.ops4j.inf.Fallback;
 
 import groovy.text.SimpleTemplateEngine;
 import groovy.text.Template;
@@ -12,23 +17,24 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class PerformanceServlet extends HttpServlet
+public class AnalysisServlet extends HttpServlet implements Fallback
 {
   private static final long serialVersionUID = 7032785581338862391L;
 
-  public PerformanceServlet()
+  public AnalysisServlet()
   {
     super();
   }
 
-  public static final String TEMPLATE = "dexjs.gt";
-  private String             template;
+  private String template  = "/dexjs.gt";
+  private String chartType = null;
 
   @Override
   public void init(final ServletConfig config) throws ServletException
   {
     super.init(config);
-    template = config.getInitParameter(TEMPLATE);
+    template = config.getInitParameter("template");
+    chartType = config.getInitParameter("chartType");
   }
 
   @Override
@@ -38,8 +44,11 @@ public class PerformanceServlet extends HttpServlet
     PrintWriter writer = resp.getWriter();
     SimpleTemplateEngine engine = new SimpleTemplateEngine();
     Template t = engine.createTemplate(
-        new InputStreamReader(this.getClass().getResourceAsStream(TEMPLATE)));
-    // .make(bindMap);
+        new InputStreamReader(this.getClass().getResourceAsStream(template)));
+    Map<String, Object> binding = new HashMap<String, Object>();
+    binding.put("DATA", HttpServer.DATA);
+    binding.put("chartType", chartType);
+    writer.write(t.make(binding).toString());
     // Grab the data.
     // Feed the data to a groovy template
     writer.close();

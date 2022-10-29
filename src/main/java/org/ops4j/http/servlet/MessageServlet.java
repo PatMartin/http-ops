@@ -1,4 +1,4 @@
-package org.ops4j.servlet;
+package org.ops4j.http.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;

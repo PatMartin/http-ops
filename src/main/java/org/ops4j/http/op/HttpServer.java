@@ -1,4 +1,4 @@
-package org.ops4j.op.http;
+package org.ops4j.http.op;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
