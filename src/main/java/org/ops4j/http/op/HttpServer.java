@@ -102,7 +102,7 @@ public class HttpServer extends BaseOp<HttpServer>
         {
           info.addInitParam(paramConfig.getString("name"),
               paramConfig.getString("value"));
-          info(paramConfig.getString("name"), "=",
+          TRACE(paramConfig.getString("name"), "=",
               paramConfig.getString("value"));
         }
         servlets.add(info);
@@ -110,7 +110,8 @@ public class HttpServer extends BaseOp<HttpServer>
 
       DeploymentInfo servletBuilder = Servlets.deployment()
           .setClassLoader(HttpServer.class.getClassLoader())
-          .setDeploymentName(fallback(config().getString("deploymentName"), "ops"))
+          .setDeploymentName(
+              fallback(config().getString("deploymentName"), "ops"))
           .setContextPath(fallback(getApp(), config().getString("app")))
           .addServlets(servlets);
       DeploymentManager manager = Servlets.defaultContainer()
@@ -166,10 +167,10 @@ public class HttpServer extends BaseOp<HttpServer>
     return input.asList();
   }
 
-  public HttpServer close() throws OpsException
+  public List<OpData> close() throws OpsException
   {
     ThreadUtil.sleep(linger * 1000);
-    return this;
+    return OpData.emptyList();
   }
 
   public static void main(String args[]) throws OpsException

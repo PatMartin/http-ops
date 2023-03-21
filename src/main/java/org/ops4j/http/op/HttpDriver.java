@@ -73,10 +73,10 @@ public class HttpDriver extends BaseOp<HttpDriver>
     return input.asList();
   }
 
-  public HttpDriver close() throws OpsException
+  public List<OpData> close() throws OpsException
   {
     driver.quit();
-    return this;
+    return OpData.emptyList();
   }
 
   public static void main(String args[]) throws OpsException
