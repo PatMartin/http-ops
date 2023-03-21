@@ -76,7 +76,7 @@ public class HttpView extends BaseOp<HttpView>
     return input.asList();
   }
 
-  public HttpView close() throws OpsException
+  public List<OpData> close() throws OpsException
   {
     try
     {
@@ -86,7 +86,7 @@ public class HttpView extends BaseOp<HttpView>
     {
       throw new OpsException(ex);
     }
-    return this;
+    return OpData.emptyList();
   }
 
   public static void main(String args[]) throws OpsException
