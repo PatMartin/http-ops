@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Web Worker</title>
+</head>
+<body>
+<script>
+   var worker = new Worker('myWorker.js');
+   worker.onmessage = function (event) {
+     document.getElementById('result').textContent = event.data;
+   };
+</script>
+</body>
+</html>

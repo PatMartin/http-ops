@@ -45,18 +45,18 @@
 			<version>2.3.0.Beta1</version>
 		</dependency>
 
-		<dependency>
+		<!--dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-controls</artifactId>
 			<version>19.0.2.1</version>
-		</dependency>
+		</dependency-->
 
-		<dependency>
+		<!--dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-media</artifactId>
 			<version>19.0.2.1</version>
 			<classifier>win</classifier>
-		</dependency>
+		</dependency-->
 
 		<dependency>
 			<groupId>org.openjfx</groupId>
@@ -65,12 +65,26 @@
 			<classifier>win</classifier>
 		</dependency>
 
+		<!--<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-base</artifactId>
+			<version>19.0.2.1</version>
+			<classifier>win</classifier>
+		</dependency-->
+
 		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
-		<dependency>
+		<!--dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
 			<version>4.8.0</version>
-		</dependency>
+		</dependency-->
+		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-server -->
+		<!--dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-server</artifactId>
+			<version>4.0.0-alpha-2</version>
+		</dependency-->
+
 
 	</dependencies>
 </project>

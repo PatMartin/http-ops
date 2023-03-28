@@ -47,8 +47,12 @@ public class HttpDriver extends BaseOp<HttpDriver>
   {
     System.setProperty("webdriver.chrome.driver", getDriverPath());
     driver = new ChromeDriver();
-
+    // Maximize the browser
+    driver.manage().window().maximize();
     driver.get("http://localhost:4242/index.html");
+
+    // WebDriver d = new HtmlUnitDriver(); // or your choice of driver
+    // d.get("http://www.google.com");
 
     try
     {
