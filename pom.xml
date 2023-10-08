@@ -31,18 +31,18 @@
 		<dependency>
 			<groupId>io.undertow</groupId>
 			<artifactId>undertow-core</artifactId>
-			<version>2.3.0.Beta1</version>
+			<version>2.3.5.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>io.undertow</groupId>
 			<artifactId>undertow-servlet</artifactId>
-			<version>2.3.0.Beta1</version>
+			<version>2.3.5.Final</version>
 		</dependency>
 
 		<dependency>
 			<groupId>io.undertow</groupId>
 			<artifactId>undertow-websockets-jsr</artifactId>
-			<version>2.3.0.Beta1</version>
+			<version>2.3.5.Final</version>
 		</dependency>
 
 		<!--dependency>
@@ -61,10 +61,17 @@
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-web</artifactId>
-			<version>19.0.2.1</version>
+			<version>20</version>
 			<classifier>win</classifier>
 		</dependency>
 
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-controls</artifactId>
+			<version>20</version>
+			<classifier>win</classifier>
+		</dependency>
+		
 		<!--<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-base</artifactId>

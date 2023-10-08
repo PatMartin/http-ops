@@ -1,5 +1,6 @@
 package org.ops4j.http.op;
 
+import java.net.http.WebSocket;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +26,12 @@ import io.undertow.servlet.Servlets;
 import io.undertow.servlet.api.DeploymentInfo;
 import io.undertow.servlet.api.DeploymentManager;
 import io.undertow.servlet.api.ServletInfo;
+import io.undertow.websockets.WebSocketConnectionCallback;
+import io.undertow.websockets.core.AbstractReceiveListener;
+import io.undertow.websockets.core.BufferedTextMessage;
+import io.undertow.websockets.core.WebSocketChannel;
+import io.undertow.websockets.core.WebSockets;
+import io.undertow.websockets.spi.WebSocketHttpExchange;
 import jakarta.servlet.Servlet;
 import jakarta.servlet.ServletException;
 import lombok.Getter;
@@ -118,6 +125,7 @@ public class HttpServer extends BaseOp<HttpServer>
           .addDeployment(servletBuilder);
       manager.deploy();
 
+      
       Undertow.builder()
           .addHttpListener(
               fallback(getPort(), config()

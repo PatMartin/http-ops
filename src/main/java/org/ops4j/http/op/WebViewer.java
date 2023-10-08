@@ -6,6 +6,7 @@ import java.util.Queue;
 
 import org.ops4j.OpData;
 import org.ops4j.base.BaseOp;
+import org.ops4j.cli.OpCLI;
 import org.ops4j.exception.OpsException;
 import org.ops4j.inf.Op;
 
@@ -31,15 +32,17 @@ public class WebViewer extends BaseOp<WebViewer>
     super("web:view");
   }
 
+  @Override
   public List<OpData> execute(OpData input) throws OpsException
   {
-    data.add(input);
+    // System.out.println("LOADING: " + getView());
     return input.asList();
   }
 
   public static void main(String args[]) throws OpsException
   {
-    // OpCLI.cli(new WebViewer(), args);
-    Application.launch(BrowserApp.class, args);
+    // Application.launch(BrowserApp.class, args);
+    new Thread(() -> Application.launch(BrowserApp.class, args)).start();
+    OpCLI.cli(new WebViewer(), args);
   }
 }

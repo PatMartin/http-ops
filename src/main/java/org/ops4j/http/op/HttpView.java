@@ -28,7 +28,7 @@ import picocli.CommandLine.Parameters;
 public class HttpView extends BaseOp<HttpView>
 {
   @Parameters(index = "0", arity = "0..*",
-      description = "The number of milliseconds to pause.")
+      description = "Name value pair variable definitions.")
   private @Getter @Setter Map<String, String> map = new HashMap<>();
 
   @Option(names = { "--view" }, description = "The http view.")

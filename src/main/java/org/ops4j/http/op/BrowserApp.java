@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.ops4j.OpData;
 import org.ops4j.http.JavaBridge;
+import org.ops4j.util.JsonNodeIterator;
 
 //import org.ops4j.http.JavaBridge;
 
@@ -18,6 +19,22 @@ import netscape.javascript.JSObject;
 
 public class BrowserApp extends Application
 {
+  WebViewer        wv;
+  JsonNodeIterator jnIt;
+
+  public BrowserApp()
+  {
+    try
+    {
+      wv = new WebViewer().initialize().open();
+      jnIt = JsonNodeIterator.fromInputStream(System.in);
+    }
+    catch(Exception ex)
+    {
+      ex.printStackTrace();
+    }
+  }
+
   private static List<OpData> data      = new ArrayList<OpData>();
 
   private WebView             webView   = null;
@@ -26,11 +43,6 @@ public class BrowserApp extends Application
   // Maintain a strong reference to prevent garbage collection:
   // https://bugs.openjdk.java.net/browse/JDK-8154127
   private final JavaBridge    bridge    = new JavaBridge();
-
-  public static void add(OpData opdata)
-  {
-    data.add(opdata);
-  }
 
   private void enableFirebug(final WebEngine we)
   {
@@ -47,7 +59,7 @@ public class BrowserApp extends Application
     webEngine = webView.getEngine();
 
     // webView.getEngine().setJavaScriptEnabled(true);
-    webEngine.load("http://localhost:4242/index.html");
+    webEngine.load("http://localhost:8080/apps/");
     enableFirebug(webEngine);
 
     webEngine.getLoadWorker().stateProperty()
@@ -68,5 +80,26 @@ public class BrowserApp extends Application
 
     primaryStage.setScene(scene);
     primaryStage.show();
+
+    /*
+     * Platform.runLater(new Thread(() -> { while (jnIt.hasNext()) {
+     * List<OpData> data;
+     * 
+     * JsonNode json = jnIt.next(); try {
+     * System.out.println(JacksonUtil.toString(json)); } catch(OpsException e) {
+     * // TODO Auto-generated catch block e.printStackTrace(); } } }));
+     */
+    /*
+     * while (true) { if (data.size() < 1) {
+     * System.out.println("EMPTY AS USUAL");
+     * //webEngine.load("https://www.google.com/"); } else {
+     * System.out.println("CLEARING: " + data.size() + " ITEMS."); data.clear();
+     * } ThreadUtil.sleep(1000L); }
+     */
   }
+
+  // public static void main(String args[])
+  // {
+  // Application.launch(args);
+  // }
 }

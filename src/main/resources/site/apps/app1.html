@@ -1,0 +1,56 @@
+<html>
+<style>
+body {
+	background-color: #000;
+	color: #fff;
+	font-family: "Lucida Console";
+	font-size: 12px;
+}
+
+a:link {
+	text-decoration: none;
+	color: #414141
+}
+
+a:visited {
+	text-decoration: none;
+	color: #414141
+}
+
+a:active {
+	text-decoration: none;
+	color: #414141
+}
+
+a:hover {
+	text-decoration: underline
+}
+
+.header {
+	color: #414141;
+	margin: 0px;
+	padding: 0px;
+}
+</style>
+<script>
+	var connection = new WebSocket('ws://localhost:8080/wss');
+
+	connection.onopen = function() {
+		setInterval(function() {
+			connection.send('get-data');
+		}, 1000);
+	};
+
+	// Log errors
+	connection.onerror = function(error) {
+		console.log('WebSocket Error ' + error);
+	};
+
+	connection.onmessage = function(e) {
+		document.getElementById("message").innerHTML = e.data;
+	};
+</script>
+<body>
+	<p id="message"></p>
+</body>
+</html>

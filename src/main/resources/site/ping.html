@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Ping</title>
+</head>
+<body>
+<script>
+let webSocket=require('ws')
+
+var wsPing=new webSocket.Server({port:8080})
+wsPing.on('connection',(socket)=>{
+socket.on('message',(message)=>{
+console.log('received:',message)
+setTimeout(()=>socket.send('ping'),1000)
+})
+socket.send('ping') //loop start
+})
+</script>
+</body>
+</html>
