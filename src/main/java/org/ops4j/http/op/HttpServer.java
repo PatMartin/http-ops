@@ -1,6 +1,5 @@
 package org.ops4j.http.op;
 
-import java.net.http.WebSocket;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,12 +25,6 @@ import io.undertow.servlet.Servlets;
 import io.undertow.servlet.api.DeploymentInfo;
 import io.undertow.servlet.api.DeploymentManager;
 import io.undertow.servlet.api.ServletInfo;
-import io.undertow.websockets.WebSocketConnectionCallback;
-import io.undertow.websockets.core.AbstractReceiveListener;
-import io.undertow.websockets.core.BufferedTextMessage;
-import io.undertow.websockets.core.WebSocketChannel;
-import io.undertow.websockets.core.WebSockets;
-import io.undertow.websockets.spi.WebSocketHttpExchange;
 import jakarta.servlet.Servlet;
 import jakarta.servlet.ServletException;
 import lombok.Getter;
@@ -41,24 +34,24 @@ import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
 @AutoService(Op.class)
-@Command(name = "http:server", description = "Execute a streaming http server.")
+@Command(name = "http-server", description = "Execute a streaming http server.")
 public class HttpServer extends BaseOp<HttpServer>
 {
-  @Parameters(index = "0", arity = "0..*",
-      description = "The number of milliseconds to pause.")
-  private @Getter @Setter Map<String, String> map        = new HashMap<>();
-
-  @Option(names = { "--app" }, description = "The application context.")
+  @Option(names = { "--app" }, description = "The application context."
+      + "  DEFAULT='${DEFAULT-VALUE}'")
   public @Getter @Setter String               app        = "/ops";
 
-  @Option(names = { "--host" }, description = "The hostname.")
+  @Option(names = { "--host" }, description = "The hostname."
+      + "  DEFAULT='${DEFAULT-VALUE}'")
   public @Getter @Setter String               hostname   = "localhost";
 
-  @Option(names = { "--port" }, description = "The hostname.")
+  @Option(names = { "--port" }, description = "The hostname."
+      + "  DEFAULT='${DEFAULT-VALUE}'")
   public @Getter @Setter Integer              port       = 4242;
 
   @Option(names = { "--linger" },
-      description = "The number of seconds to linger.")
+      description = "The number of seconds to linger (0=forever)."
+          + "  DEFAULT='${DEFAULT-VALUE}'")
   public @Getter @Setter Long                 linger     = 0L;
 
   @Option(names = { "--root" }, description = "The server root directory.")
@@ -69,7 +62,7 @@ public class HttpServer extends BaseOp<HttpServer>
 
   public HttpServer()
   {
-    super("http:server");
+    super("http-server");
     setDefaultView("DEFAULT.HTTP");
   }
 
@@ -125,7 +118,6 @@ public class HttpServer extends BaseOp<HttpServer>
           .addDeployment(servletBuilder);
       manager.deploy();
 
-      
       Undertow.builder()
           .addHttpListener(
               fallback(getPort(), config()
@@ -154,8 +146,8 @@ public class HttpServer extends BaseOp<HttpServer>
               // Serve all static files from a folder
               .addPrefixPath("/docs",
                   new ResourceHandler(new PathResourceManager(
-                      Paths
-                          .get("C:/ws/ws1/ops4j/src/main/resources/site/docs/"),
+// This laziness just cost me an hour or so.  Fix the hardcode.
+                      Paths.get("C:/ws/ops4j/http-ops/src/main/resources/site/docs/"),
                       100)).setDirectoryListingEnabled(true))
 
           ).build().start();

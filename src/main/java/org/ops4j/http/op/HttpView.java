@@ -1,8 +1,6 @@
 package org.ops4j.http.op;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.ops4j.OpData;
 import org.ops4j.base.BaseOp;
@@ -21,18 +19,13 @@ import lombok.Getter;
 import lombok.Setter;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
-import picocli.CommandLine.Parameters;
 
 @AutoService(Op.class)
-@Command(name = "http:view", description = "Stream data through a http view.")
+@Command(name = "http-view", description = "Stream data through a http view.")
 public class HttpView extends BaseOp<HttpView>
 {
-  @Parameters(index = "0", arity = "0..*",
-      description = "Name value pair variable definitions.")
-  private @Getter @Setter Map<String, String> map = new HashMap<>();
-
   @Option(names = { "--view" }, description = "The http view.")
-  public @Getter @Setter String               httpView = null;
+  public @Getter @Setter String httpView = null;
 
   public class WebViewer extends Application
   {
@@ -53,10 +46,10 @@ public class HttpView extends BaseOp<HttpView>
   }
 
   private WebViewer viewer = null;
-  
+
   public HttpView()
   {
-    super("http:view");
+    super("http-view");
   }
 
   public HttpView initialize() throws OpsException
@@ -91,7 +84,7 @@ public class HttpView extends BaseOp<HttpView>
 
   public static void main(String args[]) throws OpsException
   {
-    //launch(WebViewer.class);
+    // launch(WebViewer.class);
     OpCLI.cli(new HttpView(), args);
   }
 }

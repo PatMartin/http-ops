@@ -42,21 +42,25 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
-@AutoService(Op.class)
-@Command(name = "wss", description = "Stream data through a http view.")
+@AutoService(Op.class) @Command(name = "wss",
+    description = "Run a web socket server to enable web views "
+        + "with realtime updates into the streaming data.")
 public class WebSocketServer extends BaseOp<WebSocketServer>
 {
   @Parameters(index = "0", arity = "0..*",
       description = "The name value pair arguments.")
   private @Getter @Setter Map<String, String> args   = new HashMap<>();
 
-  @Option(names = { "--host" }, description = "The web-socket host.")
+  @Option(names = { "--host" },
+      description = "The web-socket host.  DEFAULT='${DEFAULT-VALUE}'")
   public @Getter @Setter String               host   = "localhost";
 
-  @Option(names = { "--port" }, description = "The web-socket port.")
+  @Option(names = { "--port" },
+      description = "The web-socket port.  DEFAULT='${DEFAULT-VALUE}'")
   public @Getter @Setter int                  port   = 8080;
 
-  @Option(names = { "--size" }, description = "The buffer size.")
+  @Option(names = { "--size" }, description = "The buffer size.  "
+      + "DEFAULT='${DEFAULT-VALUE}'")
   public @Getter @Setter int                  size   = 100;
 
   Undertow                                    server = null;
@@ -133,7 +137,6 @@ public class WebSocketServer extends BaseOp<WebSocketServer>
 
   public WebSocketServer open() throws OpsException
   {
-
     server.start();
 
     URI uri;

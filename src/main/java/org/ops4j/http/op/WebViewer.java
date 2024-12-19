@@ -19,7 +19,7 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
 @AutoService(Op.class)
-@Command(name = "web:view", description = "View a web asset.")
+@Command(name = "web-view", description = "View a web asset.")
 public class WebViewer extends BaseOp<WebViewer>
 {
   public static Queue<OpData>   data = new LinkedList<>();
@@ -29,7 +29,7 @@ public class WebViewer extends BaseOp<WebViewer>
 
   public WebViewer()
   {
-    super("web:view");
+    super("web-view");
   }
 
   @Override
